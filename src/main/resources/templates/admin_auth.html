@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Authentication</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, #f0f0f0 0%, #1c1c1c 100%);
+            background-image: url('/css/Images/faded background.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #fff;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .container {
+            display: flex;
+            width: 900px;
+            background: url('/css/Images/faded background.png') no-repeat center center;
+            background-size: cover;
+            background-blend-mode: overlay;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+        }
+
+        .left, .right {
+            flex: 1;
+            padding: 40px;
+        }
+
+        .right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #00b6a1;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        input::placeholder {
+            color: #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background: linear-gradient(to right, #1d4e89, #00b6a1);
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #163d6b, #009987);
+        }
+
+        .error {
+            margin-top: 20px;
+            color: #ff4c4c;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+
+
+        <div class="right">
+            <h2>Admin Sign-In</h2>
+
+            <form th:action="@{/admin-auth}" th:object="${admin}" method="post">
+                <label>Username:</label>
+                <input type="text" th:field="*{username}" placeholder="Enter your username" required />
+
+                <label>Admin Key:</label>
+                <input type="password" th:field="*{adminKey}" placeholder="Enter admin key" required />
+
+                <button type="submit">Verify</button>
+            </form>
+
+            <div th:if="${error}" class="error" th:text="${error}"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

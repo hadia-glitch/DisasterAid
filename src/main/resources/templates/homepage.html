@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Disaster Management System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+  <!-- Marker Cluster CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    html {
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('/css/Images/faded background.png') no-repeat center center/cover;
+      color: white;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(to right, #163d6b, #009987);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-section {
+      padding: 40px 20px 60px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-text-box {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      max-width: 90%;
+      margin-bottom: 30px;
+      color: white;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-text-box h1 {
+      font-size: 48px;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-text-box p {
+      font-size: 20px;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .alerts-btn,
+    .about-btn {
+      margin: 10px;
+      width: 220px;
+    }
+
+    #features {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 80px 50px;
+      text-align: center;
+    }
+
+    #features h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .feature-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .feature {
+      background-color: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 280px;
+      min-width: 240px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+      color: #fff;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-5px);
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .feature h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      font-size: 16px;
+      color: #ddd;
+    }
+
+    #alerts-map {
+      height: 80vh;
+      width: 100%;
+      z-index: 0;
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+
+    #about {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 80px 20px;
+      text-align: center;
+      margin-top: 0;
+    }
+
+    #about h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+    }
+
+    #about p {
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+      color: #e0e0e0;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">DisasterAid</div>
+  <div class="auth-buttons">
+    <a href="login" class="btn" style="width:auto; margin-top: 0;">Login</a>
+    <a href="register" class="btn" style="width:auto; margin-top: 0;">Sign Up</a>
+  </div>
+</nav>
+
+<section class="hero-section">
+  <div class="hero-text-box">
+    <h1>DisasterAid</h1>
+    <p>Helping you recover and rebuild</p>
+  </div>
+  <a href="#alerts-map" class="btn alerts-btn">View Alerts</a>
+  <a href="#about" class="btn about-btn">Learn About Us</a>
+</section>
+
+<section id="features">
+  <h2>Key Features</h2>
+  <div class="feature-boxes">
+    <div class="feature">
+      <h3>Real-time Alerts</h3>
+      <p>Stay informed with instant notifications on disasters near you.</p>
+    </div>
+    <div class="feature">
+      <h3>Request Aid</h3>
+      <p>Instant provision of rescue teams and resources during crises.</p>
+    </div>
+    <div class="feature">
+      <h3>Make a difference</h3>
+      <p>Volunteer and become part of our teams.</p>
+    </div>
+  </div>
+</section>
+
+<section id="alerts-map">
+  <div id="map"></div>
+</section>
+
+<section id="about">
+  <h2>About Us</h2>
+  <p>
+    Our Disaster Management System helps communities respond faster and smarter to emergencies. Admins can send real-time alerts, assign skilled volunteers, and manage resources efficiently. Victims can request help easily, and volunteers can view and manage their tasks. With user-friendly portals and smart coordination, we ensure effective disaster response when it’s needed most.
+  </p>
+</section>
+
+<script>
+  const map = L.map('map').setView([30.3753, 69.3451], 6);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  const markers = L.markerClusterGroup();
+
+  function getSeverityColor(severity) {
+    switch (severity.toLowerCase()) {
+      case 'high': return 'red';
+      case 'medium': return 'orange';
+      case 'low': return 'yellow';
+      default: return 'gray';
+    }
+  }
+
+  function fetchAlerts() {
+    fetch('/api/alerts')
+      .then(response => response.json())
+      .then(alerts => {
+        markers.clearLayers();
+
+        alerts.forEach(alert => {
+          fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(alert.location)}`)
+            .then(res => res.json())
+            .then(data => {
+              if (data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+
+                const circle = L.circleMarker([lat, lon], {
+                  color: getSeverityColor(alert.severity),
+                  fillColor: getSeverityColor(alert.severity),
+                  fillOpacity: 0.6,
+                  radius: 10
+                });
+
+                const popup = `
+                  <strong>${alert.title}</strong><br>
+                  <b>Severity:</b> ${alert.severity}<br>
+                  <b>Location:</b> ${alert.location}<br>
+                  <b>Duration:</b> ${alert.duration}<br>
+                  <p>${alert.description}</p>
+                `;
+
+                circle.bindPopup(popup);
+                markers.addLayer(circle);
+              }
+            });
+        });
+
+        map.addLayer(markers);
+      });
+  }
+
+  fetchAlerts();
+</script>
+</body>
+</html>
+

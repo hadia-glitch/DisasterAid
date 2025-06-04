@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>All Task Reports</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('/css/Images/faded background.png') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+      margin: 0;
+      padding: 40px;
+      color: #fff;
+    }
+
+    .section {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+      padding: 30px;
+      margin: 30px auto;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 1200px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      overflow-x: auto;
+    }
+
+    h2 {
+      color: #00b6a1;
+      font-size: 26px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: left;
+      color: #fff;
+    }
+
+    th {
+      background-color: rgba(0, 182, 161, 0.3);
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    td {
+      font-size: 14px;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 30px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-button:hover {
+      color: #00b6a1;
+    }
+  </style>
+</head>
+<body>
+<div class="section">
+  <h2>All Submitted Task Reports</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Request ID</th>
+      <th>Volunteer</th>
+      <th>Description</th>
+      <th>Time Duration</th>
+      <th>Success Rate</th>
+      <th>Resources Used</th>
+      <th>Submitted At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="report : ${reports}">
+      <td th:text="${report.requestId}">REQ-001</td>
+      <td th:text="${report.volunteerUsername}">JohnDoe</td>
+      <td th:text="${report.description}">Assisted flood victims</td>
+      <td th:text="${report.timeDuration}">3 hours</td>
+      <td th:text="${report.successRate}">90%</td>
+      <td th:text="${report.resourcesUsed}">Water, First Aid</td>
+      <td th:text="${#dates.format(report.submittedAt, 'yyyy-MM-dd HH:mm')}">2025-05-13 10:30</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
+

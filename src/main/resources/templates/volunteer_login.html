@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register Volunteer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle, #f0f0f0 0%, #1c1c1c 100%);
+            color: #d3d3d3;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .container {
+            display: flex;
+            width: 900px;
+            background: url('/css/Images/faded background.png') no-repeat center center;
+            background-size: cover;
+            background-blend-mode: overlay;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 50px 40px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .image-section {
+            flex: 1;
+            background: url('/css/Images/login-side.png') no-repeat center center;
+            background-size: cover;
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            color: #00b6a1;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        input::placeholder {
+            color: #ddd;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            background-color: #018b84;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #163d6b, #009987);
+        }
+
+        .message {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .success {
+            background-color: rgba(0, 128, 0, 0.2);
+            color: #5fffbc;
+        }
+
+        .error {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #ff9999;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .image-section {
+                height: 200px;
+                background-size: contain;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+        <div class="form-section">
+            <h2>Register Volunteer</h2>
+            <form th:action="@{/volunteer/login}" method="post" th:object="${volunteer}">
+                <label for="username">Username:</label>
+                <input type="text" id="username" th:field="*{username}" required placeholder="Enter username" />
+
+                <label for="skill">Skill:</label>
+                <select id="skill" th:field="*{skill}" required>
+                    <option value="">-- Select Skill --</option>
+                    <option value="Veterinary Assistance">Veterinary Assistance</option>
+                    <option value="Medical">Medical</option>
+                    <option value="Construction">Construction</option>
+                    <option value="Firefighter">Firefighter</option>
+                    <option value="Hazardous Material Specialist">Hazardous Material Specialist</option>
+                    <option value="Flood Management">Flood Management</option>
+                    <option value="Wildlife Specialist">Wildlife Specialist</option>
+                    <option value="Shelter Manager">Shelter Manager</option>
+                    <option value="Electrician">Electrician</option>
+                </select>
+
+                <label for="availability">Availability:</label>
+                <select id="availability" th:field="*{availability}" required>
+                    <option value="true">Available</option>
+                    <option value="false">Not Available</option>
+                </select>
+
+                <label for="location">Location:</label>
+                <input type="text" id="location" th:field="*{location}" required placeholder="Enter location" />
+
+                <button type="submit">Register</button>
+            </form>
+
+            <div th:if="${success != null}">
+                <div th:if="${success}" class="message success">Volunteer registered successfully!</div>
+                <div th:if="${!success}" class="message error">Failed to register volunteer. Please try again.</div>
+            </div>
+        </div>
+        <div class="image-section"></div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Submit Aid Request</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('/css/Images/faded background.png') no-repeat center center fixed;
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 40px;
+            color: #fff;
+        }
+
+        .section {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            margin: 30px auto;
+            border-radius: 20px;
+            width: 60%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: scale(1.01);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        h2 {
+            color: #00b6a1;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        input, textarea, select {
+            margin-top: 8px;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 15px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            background-color: #018b84;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #163d6b, #009987);
+        }
+
+        ::placeholder {
+            color: #ccc;
+        }
+
+        .resource-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .resource-row select,
+        .resource-row input {
+            flex: 1;
+        }
+
+        select {
+            background-color: #555;
+            color: white;
+            border: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        select option {
+            background-color: #555;
+            color: white;
+        }
+
+        select option:checked,
+        select option:hover {
+            background-color: #009987;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+    <h2>Submit Aid Request</h2>
+    <form th:action="@{'/victim/submit-request'(username=${victimUsername})}" th:object="${wrapper}" method="post">
+        <input type="hidden" th:field="*{victimUsername}" />
+
+        <label>Priority:</label>
+        <select th:field="*{priority}" required>
+            <option value="">-- Select Priority --</option>
+            <option value="Low">Low</option>
+            <option value="Moderate">Moderate</option>
+            <option value="High">High</option>
+            <option value="Critical">Critical</option>
+        </select>
+
+        <label>People Needing Aid:</label>
+        <input type="number" th:field="*{peopleNeedingAid}" required min="1" />
+
+        <label>Volunteer Skill:</label>
+        <select th:field="*{volunteerSkills}" required>
+            <option value="">-- Select Skill --</option>
+            <option value="Veterinary Assistance">Veterinary Assistance</option>
+            <option value="Medical">Medical</option>
+            <option value="Construction">Construction</option>
+            <option value="Firefighter">Firefighter</option>
+            <option value="Hazardous Material Specialist">Hazardous Material Specialist</option>
+            <option value="Flood Management">Flood Management</option>
+            <option value="Wildlife Specialist">Wildlife Specialist</option>
+            <option value="Shelter Manager">Shelter Manager</option>
+            <option value="Electrician">Electrician</option>
+        </select>
+
+        <label>Description:</label>
+        <textarea th:field="*{description}" placeholder="Describe the situation..." required></textarea>
+
+        <label>Address:</label>
+        <textarea th:field="*{Address}" placeholder="Enter address..." required></textarea>
+
+        <label>Resources:</label>
+        <div id="resources-container">
+            <div class="resource-row">
+                <select name="resourceNames" required>
+                    <option value="">-- Select Resource --</option>
+                    <option th:each="res : ${resources}" th:value="${res.name}" th:text="${res.name}"></option>
+                </select>
+                <input type="number" name="quantities" placeholder="Quantity" min="1" required/>
+            </div>
+        </div>
+
+        <button type="button" onclick="addResourceRow()">+ Add Resource</button>
+        <button type="submit">Submit Request</button>
+    </form>
+</div>
+
+<script>
+    function addResourceRow() {
+        const container = document.getElementById('resources-container');
+        const div = document.createElement('div');
+        div.classList.add('resource-row');
+        div.innerHTML = `
+            <select name="resourceNames" required>
+                ${document.querySelector("select[name='resourceNames']").innerHTML}
+            </select>
+            <input type="number" name="quantities" placeholder="Quantity" min="1" required/>
+        `;
+        container.appendChild(div);
+    }
+</script>
+</body>
+</html>

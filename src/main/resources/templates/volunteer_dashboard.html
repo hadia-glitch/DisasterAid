@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Volunteer Dashboard</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('/css/Images/faded background.png') no-repeat center center fixed;
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        .wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        .container {
+            display: flex;
+            width: 1000px;
+            max-width: 95%;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .left, .right {
+            padding: 30px;
+            flex: 1;
+        }
+
+        .left {
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        h2 {
+            color: #00b6a1;
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+
+        .profile-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #00b6a1;
+            color: white;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 6px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        input::placeholder {
+            color: #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #1d4e89, #00b6a1);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #163d6b, #009987);
+        }
+
+        .task-card {
+            background-color: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .task-card:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .task-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .task-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        a.task-card {
+            text-decoration: none;
+            color: inherit;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+        <!-- Left: Update Profile -->
+        <div class="left">
+            <div class="profile-icon">
+                <span th:text="${volunteer.username.substring(0,1).toUpperCase()}"></span>
+            </div>
+
+            <h2>Update Your Profile</h2>
+
+            <form th:action="@{/volunteer/dashboard}" method="post">
+                <input type="hidden" name="username" th:value="${volunteer.username}" />
+
+                <label for="skill">Skill:</label>
+                <select id="skill" name="skill" required>
+                    <option value="">-- Select Skill --</option>
+                    <option value="Veterinary Assistance" th:selected="${volunteer.skill == 'Veterinary Assistance'}">Veterinary Assistance</option>
+                    <option value="Medical" th:selected="${volunteer.skill == 'Medical'}">Medical</option>
+                    <option value="Construction" th:selected="${volunteer.skill == 'Construction'}">Construction</option>
+                    <option value="Firefighter" th:selected="${volunteer.skill == 'Firefighter'}">Firefighter</option>
+                    <option value="Hazardous Material Specialist" th:selected="${volunteer.skill == 'Hazardous Material Specialist'}">Hazardous Material Specialist</option>
+                    <option value="Flood Management" th:selected="${volunteer.skill == 'Flood Management'}">Flood Management</option>
+                    <option value="Wildlife Specialist" th:selected="${volunteer.skill == 'Wildlife Specialist'}">Wildlife Specialist</option>
+                    <option value="Shelter Manager" th:selected="${volunteer.skill == 'Shelter Manager'}">Shelter Manager</option>
+                    <option value="Electrician" th:selected="${volunteer.skill == 'Electrician'}">Electrician</option>
+                </select>
+
+                <label for="availability">Availability:</label>
+                <select id="availability" name="availability">
+                    <option th:value="true" th:selected="${volunteer.availability == true}">Available</option>
+                    <option th:value="false" th:selected="${volunteer.availability == false}">Unavailable</option>
+                </select>
+
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" th:value="${volunteer.location}" required />
+
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+
+        <!-- Right: Task Selection -->
+        <div class="right">
+            <h2>Select Task</h2>
+
+            <!-- View Assignments -->
+            <a th:href="@{/volunteer/view_assignments(username=${volunteer.username})}" class="task-card">
+                <svg class="task-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#00b6a1">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+                </svg>
+                <div class="task-title">View Assignments</div>
+            </a>
+
+            <!-- Submit Report -->
+            <a th:href="@{/volunteer/submitReport(username=${volunteer.username})}" class="task-card">
+                <svg class="task-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#00b6a1">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div class="task-title">Submit Report</div>
+            </a>
+            <a th:href="@{role-selection(username=${volunteer.username})}" class="task-card">
+                <i class="fas fa-history task-icon"></i>
+                <div class="task-title">Back to Profile</div>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

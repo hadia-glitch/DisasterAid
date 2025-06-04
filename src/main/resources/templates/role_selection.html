@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Choose Your Role</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Ubuntu&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, #f0f0f0 0%, #1c1c1c 100%);
+            background-image: url('/css/Images/faded background.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #fff;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+     .container {
+            display: flex;
+            width: 900px;
+            background: url('/css/Images/faded background.png') no-repeat center center;
+            background-size: cover;
+            background-blend-mode: overlay;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+        }
+
+        .role-section, .profile-section {
+            flex: 1;
+            padding: 40px;
+        }
+
+        .role-section {
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h2 {
+            font-family: 'Ubuntu', sans-serif;
+            color: #00b6a1;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            background-color: #018b84;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background-color: #017571;
+        }
+
+        .profile-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 20px;
+            background-color: #cccccc30;
+        }
+
+        .info {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        input::placeholder {
+            color: #ddd;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .delete-button {
+            background-color: #d9534f;
+        }
+
+        .delete-button:hover {
+            background-color: #c9302c;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+
+        <!-- Role Section -->
+        <div class="role-section">
+            <h2>Select Your Role</h2>
+            <form action="/role-selection" method="post">
+                <input type="hidden" name="username" th:value="${username}" />
+                <input type="hidden" name="fromRegister" th:value="${fromRegister} ? 'true' : 'false'" />
+
+                <button type="submit" name="role" value="admin">Admin</button>
+                <button type="submit" name="role" value="volunteer">Volunteer</button>
+                <button type="submit" name="role" value="victim">Victim</button>
+            </form>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <img src="/css/Images/profile.png" alt="Profile Icon" class="profile-icon" />
+            <h2 th:text="${user.name}">Full Name</h2>
+
+            <form th:action="@{/update-profile}" method="post">
+                <input type="hidden" name="username" th:value="${user.username}" />
+
+                <div class="info">
+                    <label>Username</label>
+                    <input type="text" th:value="${user.username}" disabled />
+                </div>
+
+                <div class="info">
+                    <label>Name</label>
+                    <input type="text" th:value="${user.name}" disabled />
+                </div>
+
+                <div class="info">
+                    <label>Email</label>
+                    <input type="email" name="email" th:value="${user.email}" placeholder="Enter new email" />
+                </div>
+
+                <div class="info">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Enter new password"
+                           minlength="8"
+                           oninvalid="this.setCustomValidity('Password must be at least 8 characters long')"
+                           oninput="this.setCustomValidity('')" />
+                </div>
+
+                <button type="submit">Update Profile</button>
+            </form>
+
+            <form th:action="@{/delete-user}" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');">
+                <input type="hidden" name="username" th:value="${user.username}" />
+                <button type="submit" class="delete-button">Delete Account</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

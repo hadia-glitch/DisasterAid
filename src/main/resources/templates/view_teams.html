@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Teams</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('/css/Images/faded background.png') no-repeat center center fixed;
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 40px;
+            color: #fff;
+        }
+
+        .section {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            margin: 30px auto;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1200px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            overflow-x: auto;
+        }
+
+        h2 {
+            color: #00b6a1;
+            font-size: 26px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+            color: #fff;
+        }
+
+        th {
+            background-color: rgba(0, 182, 161, 0.3);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        li {
+            color: #ccc;
+        }
+
+        button {
+            padding: 10px 14px;
+            background-color: #018b84;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #163d6b, #009987);
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-button:hover {
+            color: #00b6a1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="section">
+    <h2>Assigned Teams</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Request ID</th>
+            <th>Address</th>
+            <th>Task Description</th>
+            <th>Volunteers</th>
+            <th>Resources & Quantity</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entry : ${teamsGrouped}">
+            <td th:text="${entry.key}"></td>
+            <td th:text="${entry.value['address']}"></td>
+            <td th:text="${entry.value['taskDescription']}"></td>
+
+            <td>
+                <span th:each="volunteer : ${entry.value['volunteers']}"
+                      th:text="${volunteer} + ', '"></span>
+            </td>
+
+            <td>
+                <ul>
+                    <li th:each="resEntry : ${entry.value['resources']}">
+                        <span th:text="${resEntry.key}"></span>:
+                        <span th:text="${resEntry.value == 0 ? 'Out of Stock' : resEntry.value}"></span>
+                    </li>
+                </ul>
+            </td>
+
+            <td>
+                <form th:action="@{/admin/teams/complete}" method="post">
+                    <input type="hidden" name="requestId" th:value="${entry.key}" />
+                    <button type="submit">Mark as Complete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+</body>
+</html>

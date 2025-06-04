@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Volunteer Details</title>
+    <style>
+        body {
+         font-family: 'Segoe UI', sans-serif;
+         background-color: #f4f7fa;
+         color: #333;
+         padding: 40px;
+     }
+     .container {
+         max-width: 400px;
+         margin: auto;
+         background: #e0ecf7;
+         padding: 30px;
+         border-radius: 10px;
+         box-shadow: 0 0 12px rgba(0,0,0,0.1);
+     }
+     h2 {
+         color: #1d4e89;
+         text-align: center;
+     }
+     label {
+         display: block;
+         margin: 15px 0 5px;
+     }
+     input {
+         width: 100%;
+         padding: 8px;
+         border-radius: 6px;
+         border: 1px solid #ccc;
+     }
+     button {
+         margin-top: 20px;
+         width: 100%;
+         padding: 10px;
+         background-color: #1d4e89;
+         color: white;
+         border: none;
+         border-radius: 6px;
+         font-size: 16px;
+         cursor: pointer;
+     }
+     button:hover {
+         background-color: #163d6b;
+     }
+     .link {
+         margin-top: 15px;
+         text-align: center;
+     }
+     .link a {
+         color: #1d4e89;
+         text-decoration: none;
+         font-weight: bold;
+     }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Update Volunteer Details</h2>
+    <!-- th:object must match the model attribute name -->
+    <form th:action="@{/volunteer/update}" method="post" th:object="${volunteer}">
+        <label for="username">Username:</label>
+        <input type="text" id="username" th:field="*{username}" readonly />
+
+        <label for="skills">Skill:</label>
+        <select id="skills" th:field="*{skills}" required>
+            <option value="">-- Select Skill --</option>
+            <option value="Veterinary Assistance">Veterinary Assistance</option>
+            <option value="Medical">Medical</option>
+            <option value="Construction">Construction</option>
+            <option value="Firefighter">Firefighter</option>
+            <option value="Hazardous Material Specialist">Hazardous Material Specialist</option>
+            <option value="Flood Management">Flood Management</option>
+            <option value="Wildlife Specialist">Wildlife Specialist</option>
+            <option value="Shelter Manager">Shelter Manager</option>
+            <option value="Electrician">Electrician</option>
+        </select>
+
+        <label for="availability">Availability:</label>
+        <select id="availability" th:field="*{availability}" required>
+            <option value="true">Available</option>
+            <option value="false">Not Available</option>
+        </select>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" th:field="*{location}" required />
+
+        <button type="submit">Update Volunteer</button>
+    </form>
+</div>
+</body>
+</html>
+
+</html>
