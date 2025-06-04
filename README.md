@@ -46,7 +46,7 @@ On completion: team is deleted, resources restored, and volunteers marked availa
 ![Screenshot 2025-06-04 212806](https://github.com/user-attachments/assets/63cf8d05-9068-4e7e-b393-cba4b4d33da1)
 ![Screenshot 2025-06-04 212816](https://github.com/user-attachments/assets/56e3babe-7b8e-4dee-9a01-8715f539ab5f)
 ![Screenshot 2025-06-04 212941](https://github.com/user-attachments/assets/507a8999-9ef4-49b9-a206-ca76f097f046)
-![Screenshot 2025-06-04 212941](https://github.com/user-attachments/assets/44297da6-fa0c-439b-8535-d9ca11a63c1b)
+![Screenshot 2025-06-04 213021](https://github.com/user-attachments/assets/7e82bfc4-bfb5-4d62-bb82-335757508a21)
 
 
 <img width="473" alt="image" src="https://github.com/user-attachments/assets/b6577984-6e96-40a0-9a8d-409c46d07550" />
