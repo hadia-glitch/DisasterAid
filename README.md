@@ -22,6 +22,9 @@ Requests are sorted by priority for efficient response.
 Admin selects high-priority requests and automatically recommends volunteers based on Skill match	and Availability status
 Assigns a team and allocates appropriate resources.
 On completion: team is deleted, resources restored, and volunteers marked available.
+**HOMEPAGE**
+<img width="947" alt="image" src="https://github.com/user-attachments/assets/086872bc-6cbd-4259-8daf-b46a3bd96e60" />
+
 
 •	Tech Stack 
 
