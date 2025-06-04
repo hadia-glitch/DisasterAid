@@ -41,20 +41,19 @@ On completion: team is deleted, resources restored, and volunteers marked availa
 ![Screenshot 2025-06-04 212352](https://github.com/user-attachments/assets/17677231-776f-4109-a11f-066e3210703b)
 ![Screenshot 2025-06-04 212402](https://github.com/user-attachments/assets/95cd5dc9-38e9-4dea-99d5-41caa395e337)
 <img width="946" alt="image" src="https://github.com/user-attachments/assets/5a067b23-ad07-4f0f-a195-4162c9ca4122" />
-![Screenshot 2025-06-04 212501](https://github.com/user-attachments/assets/7b5b84ad-4426-4d27-8ff6-bab7a64c0aa5)
-![Screenshot 2025-06-04 212501](https://github.com/user-attachments/assets/6c86fb7a-46a5-4c6c-98d5-443ae3163d1c)
-![Screenshot 2025-06-04 212501](https://github.com/user-attachments/assets/b530f3e7-e58a-4f86-b88f-e6cd6060756b)
+
 
 <img width="473" alt="image" src="https://github.com/user-attachments/assets/b6577984-6e96-40a0-9a8d-409c46d07550" />
 <img width="438" alt="image" src="https://github.com/user-attachments/assets/1994b237-6b7e-4c71-85bc-cf7bc296473a" />
 
 **VOLUNTEER DASHBOARD AND PAGES**
-![Screenshot 2025-06-04 213059](https://github.com/user-attachments/assets/f43e99e5-5248-4a04-af89-d01c28df5eeb)
-![Screenshot 2025-06-04 213059](https://github.com/user-attachments/assets/4536027e-773d-4818-a5bb-18a5cdb84b8a)
-![Screenshot 2025-06-04 213059](https://github.com/user-attachments/assets/0187617d-f254-4881-94ec-821d43fa640c)
-![Screenshot 2025-06-04 214312](https://github.com/user-attachments/assets/490026d4-0223-4f73-bbbb-6dcdb18d9819)
+![Screenshot 2025-06-04 214234](https://github.com/user-attachments/assets/35b309f8-bdc5-45e2-b926-4ca971cd05aa)
+![Screenshot 2025-06-04 214141](https://github.com/user-attachments/assets/27f80058-efa7-4c45-8706-18a939911276)
+![Screenshot 2025-06-04 214114](https://github.com/user-attachments/assets/4318c47c-c345-43c8-8345-7a1759f33b1e)
+
 **VICTIM DASHBOARD AND PAGES**
 ![Screenshot 2025-06-04 214312](https://github.com/user-attachments/assets/121a1091-f9b8-4c6b-b805-9d08f97d37a2)
+![Screenshot 2025-06-04 214452](https://github.com/user-attachments/assets/1584a3bc-e0ca-4283-919c-23da694c184f)
 
 
 •	Tech Stack 
