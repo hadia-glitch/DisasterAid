@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Team</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: url('/css/Images/faded background.png') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+        }
+
+        .section {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            margin: 20px auto;
+            border-radius: 20px;
+            width: 60%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: scale(1.01);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        h2 {
+            color: #00b6a1;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h3 {
+            color: #00b6a1;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            margin-top: 8px;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 15px;
+        }
+
+        select[multiple] {
+            height: 150px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 12px;
+            background-color: #018b84;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #163d6b, #009987);
+        }
+
+        ::placeholder {
+            color: #ccc;
+        }
+
+        .back-button {
+            color: white;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            color: #00b6a1;
+        }
+
+        #requestDetails p {
+            margin: 5px 0;
+            color: #ccc;
+        }
+        select {
+    background-color: #555; /* Grey background */
+    color: white;           /* White text */
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+select option {
+    background-color: #555;
+    color: white;
+}
+
+select option:checked,
+select option:hover {
+    background-color: #009987;
+    color: white;
+}
+
+    </style>
+
+    <script>
+        function fetchRequestDetails() {
+            var requestId = document.getElementById("requestId").value;
+            if (!requestId) return;
+
+            fetch("/admin/teams/request-details?requestId=" + requestId)
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById("requestDetails");
+                    container.innerHTML = `
+                        <h3>Request Details</h3>
+                        <p><strong>Priority:</strong> ${data.priority}</p>
+                        <p><strong>Address:</strong> ${data.address}</p>
+                        <p><strong>People Needing Aid:</strong> ${data.peopleNeedingAid}</p>
+                        <p><strong>Skills Required:</strong> ${data.volunteerSkills}</p>
+                        <p><strong>Description:</strong> ${data.description}</p>
+                    `;
+                })
+                .catch(error => console.error("Error fetching request details:", error));
+        }
+    </script>
+</head>
+<body>
+
+<div class="section">
+    <h2>Create Team</h2>
+    <form id="selectRequestForm" th:action="@{/admin/teams/create-team(username=${admin.username})}" method="POST">
+
+    <label for="requestId">Select Request:</label>
+        <select id="requestId" name="requestId" onchange="fetchRequestDetails()">
+            <option value="">-- Select --</option>
+            <th:block th:each="id : ${requestIds}">
+                <option th:value="${id}" th:text="${id}" th:selected="${id} == ${requestId}"></option>
+            </th:block>
+        </select>
+        <button type="submit">Select Request</button>
+    </form>
+</div>
+
+<div class="section" id="requestDetails" style="display: block;"></div>
+
+<div class="section" th:if="${volunteers != null}">
+
+        <form th:action="@{/admin/teams/assign(username=${admin.username})}" method="POST">
+
+        <input type="hidden" name="requestId" th:value="${requestId}" />
+        <label for="volunteerUsernames">Select Volunteers:</label>
+        <select id="volunteerUsernames" name="volunteerUsernames" multiple>
+            <th:block th:each="volunteer : ${volunteers}">
+                <option th:value="${volunteer.username}" th:text="${volunteer.username}"></option>
+            </th:block>
+        </select>
+        <button type="submit">Assign Selected Volunteers</button>
+    </form>
+</div>
+
+<a class="back-button" th:href="@{/admin/dashboard(username=${admin.username})}">← Back to Dashboard</a>
+
+</body>
+</html>
+

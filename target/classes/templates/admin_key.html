@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Key</title>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle, #f0f0f0 0%, #1c1c1c 100%);
+            color: #d3d3d3;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .container {
+            width: 450px;
+            background: url('/css/Images/faded background.png') no-repeat center center;
+            background-size: cover;
+            background-color: rgba(0, 0, 0, 0.4);
+            background-blend-mode: overlay;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Ubuntu', sans-serif;
+            color: #00b6a1;
+            margin-bottom: 25px;
+        }
+
+        p {
+            color: #e0e0e0;
+            margin: 12px 0;
+            font-size: 16px;
+        }
+
+        p.bold-text {
+            font-weight: 700;
+            font-size: 20px;
+            color: #00c9a7;
+        }
+
+        p.warning {
+            font-weight: 700;
+            color: #ffc107;
+            margin-top: 20px;
+        }
+
+        button {
+            margin-top: 30px;
+            padding: 12px 0;
+            background-color: #00b6a1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00977e;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+        <!-- If Admin Key Exists -->
+        <div th:if="${adminKey != null}">
+            <h2>Admin Key Granted</h2>
+            <p>Your Admin Key:</p>
+            <p class="bold-text" th:text="${adminKey}"></p>
+            <p class="warning">Please save this key. It will not be shown again!</p>
+            <form th:action="@{/admin-auth}" method="get">
+                <input type="hidden" name="username" th:value="${username}" />
+                <button type="submit">Okay</button>
+            </form>
+        </div>
+
+        <!-- If Admin Key Does NOT Exist -->
+        <div th:if="${adminKey == null}">
+            <h2>Authorization Pending</h2>
+            <p>Your admin access request is not yet approved.</p>
+            <p>Please wait for an administrator to grant access.</p>
+            <form th:action="@{/role-selection}" method="get">
+                <input type="hidden" name="username" th:value="${username}" />
+                <input type="hidden" name="fromRegister" th:value="true" />
+                <button type="submit">Okay</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

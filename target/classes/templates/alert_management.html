@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Manage Disaster Alerts</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: url('/css/Images/faded background.png') no-repeat center center fixed;
+        background-size: cover;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 40px;
+        color: #fff;
+    }
+
+    .section {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(12px);
+        padding: 30px;
+        margin: 30px auto;
+        border-radius: 20px;
+        width: 60%;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .section:hover {
+        transform: scale(1.01);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    h2 {
+        color: #00b6a1;
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-top: 15px;
+        color: #ccc;
+        font-weight: 500;
+    }
+
+    input, textarea, select {
+        margin-top: 8px;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 15px;
+    }
+
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    button {
+        margin-top: 25px;
+        width: 100%;
+        padding: 12px;
+        background-color: #018b84;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(to right, #163d6b, #009987);
+    }
+
+    ::placeholder {
+        color: #ccc;
+    }
+
+  .back-button {
+    color: white;
+    text-decoration: none;
+  }
+
+  .back-button:hover {
+    color: #00b6a1;
+  }
+      select {
+    background-color: #555; /* Grey background */
+    color: white;           /* White text */
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+select option {
+    background-color: #555;
+    color: white;
+}
+
+select option:checked,
+select option:hover {
+    background-color: #009987;
+    color: white;
+}
+
+
+  </style>
+</head>
+<body>
+
+<div class="section">
+  <h2>Create New Alert</h2>
+  <form th:action="@{/admin/alert/create(username=${admin.username})}" th:object="${adminAlert}" method="post">
+    <label>Title:</label>
+    <input type="text" th:field="*{title}" placeholder="Alert Title" required />
+
+    <label>Description:</label>
+    <textarea th:field="*{description}" placeholder="Alert Description" required></textarea>
+
+    <label>Location:</label>
+    <input type="text" th:field="*{location}" placeholder="Affected Area" required />
+
+    <label>Duration:</label>
+    <input type="text" th:field="*{duration}" placeholder="Expected Time and Duration" required />
+
+    <label>Severity:</label>
+    <select th:field="*{severity}" required>
+      <option value="" disabled selected>Select Severity</option>
+      <option value="Low">Low</option>
+      <option value="Moderate">Moderate</option>
+      <option value="High">High</option>
+      <option value="Critical">Critical</option>
+    </select>
+
+    <button type="submit">Submit Alert</button>
+  </form>
+</div>
+
+<div class="section">
+  <h2>Delete Alert by ID</h2>
+  <form th:action="@{/admin/alert/delete(username=${admin.username})}" method="post">
+    <label>Alert ID:</label>
+    <input type="number" name="id" placeholder="Enter Alert ID" required />
+    <button type="submit">Delete Alert</button>
+  </form>
+</div>
+
+<div class="section">
+  <h2>Update Alert by ID</h2>
+  <form th:action="@{/admin/alert/update(username=${admin.username})}" th:object="${editAlert}" method="post">
+    <label>Alert ID:</label>
+    <input type="number" th:field="*{id}" placeholder="Alert ID" required />
+
+    <label>Title:</label>
+    <input type="text" th:field="*{title}" placeholder="New Title" required />
+
+    <label>Description:</label>
+    <textarea th:field="*{description}" placeholder="New Description" required></textarea>
+
+    <label>Location:</label>
+    <input type="text" th:field="*{location}" placeholder="New Location" required />
+
+    <label>Duration:</label>
+    <input type="text" th:field="*{duration}" placeholder="Updated Time and Duration" required />
+
+    <label>Severity:</label>
+    <select th:field="*{severity}" required>
+      <option value="" disabled selected>Select Severity</option>
+      <option value="Low">Low</option>
+      <option value="Moderate">Moderate</option>
+      <option value="High">High</option>
+      <option value="Critical">Critical</option>
+    </select>
+
+    <button type="submit">Update Alert</button>
+  </form>
+</div>
+<a class="back-button" th:href="@{/admin/dashboard(username=${admin.username})}">← Back to Dashboard</a>
+
+
+</body>
+</html>

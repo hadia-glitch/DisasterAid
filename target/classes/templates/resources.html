@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resource Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: url('/css/Images/faded background.png') no-repeat center center fixed;
+        background-size: cover;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 40px;
+        color: #fff;
+    }
+
+    .section {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(12px);
+        padding: 30px;
+        margin: 30px auto;
+        border-radius: 20px;
+        width: 70%;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .section:hover {
+        transform: scale(1.01);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    h1, h2 {
+        color: #00b6a1;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-top: 15px;
+        color: #ccc;
+        font-weight: 500;
+    }
+
+    input, button {
+        margin-top: 8px;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 15px;
+    }
+
+    input:focus {
+        background-color: rgba(255, 255, 255, 0.2);
+        outline: none;
+    }
+
+    button {
+        margin-top: 25px;
+        background-color: #018b84;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(to right, #163d6b, #009987);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+    }
+
+    th {
+        background-color: rgba(0, 182, 161, 0.8);
+    }
+
+    tr:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .back-button {
+        display: block;
+        text-align: center;
+        margin: 20px auto 0;
+        color: white;
+        font-size: 18px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .back-button:hover {
+        color: #00b6a1;
+    }
+
+    ::placeholder {
+        color: #ccc;
+    }
+      select {
+    background-color: #555; /* Grey background */
+    color: white;           /* White text */
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+select option {
+    background-color: #555;
+    color: white;
+}
+
+select option:checked,
+select option:hover {
+    background-color: #009987;
+    color: white;
+}
+  </style>
+</head>
+<body>
+
+<div class="section">
+  <h1>Resource Management</h1>
+
+  <h2>Add Resource</h2>
+  <form th:action="@{resources/save(username=${admin.username})}" method="post">
+    <label>Resource Name:</label>
+    <input type="text" name="name" placeholder="Resource Name" required>
+
+    <label>Quantity:</label>
+    <input type="text" name="quantity" placeholder="Quantity" required>
+
+    <button type="submit">Add Resource</button>
+  </form>
+</div>
+
+<div class="section">
+  <h2>Update Resource Quantity</h2>
+  <form th:action="@{resources/update(username=${admin.username})}" method="post">
+    <label>Resource Name:</label>
+    <input type="text" name="resourceName" placeholder="Resource Name" required>
+
+    <label>Quantity to Add:</label>
+    <input type="number" name="quantityToAdd" placeholder="Quantity to Add" required>
+
+    <button type="submit">Update Resource</button>
+  </form>
+</div>
+
+<div class="section">
+  <h2>Current Resources</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="resource : ${resources}">
+      <td th:text="${resource.id}">1</td>
+      <td th:text="${resource.name}">Water</td>
+      <td th:text="${resource.quantity}">100</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<a class="back-button" th:href="@{/admin/dashboard(username=${admin.username})}">← Back to Dashboard</a>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Assignments</title>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle, #f0f0f0 0%, #1c1c1c 100%);
+            color: #d3d3d3;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .container {
+            width: 1000px;
+            background: url('/css/Images/faded background.png') no-repeat center center;
+            background-size: cover;
+            background-color: rgba(0, 0, 0, 0.4);
+            background-blend-mode: overlay;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            padding: 40px 50px;
+        }
+
+        h2 {
+            font-family: 'Ubuntu', sans-serif;
+            color: #00b6a1;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            color: #00c9a7;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        p, li {
+            color: #e0e0e0;
+        }
+
+        .badge {
+            background-color: #777;
+            font-size: 13px;
+            padding: 6px 10px;
+            border-radius: 10px;
+        }
+
+        .alert {
+            background-color: rgba(255, 193, 7, 0.2);
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            color: #ffc107;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+        <h2>Assignments for Volunteer</h2>
+
+        <div th:if="${teamGroups != null and !teamGroups.isEmpty()}">
+            <div th:each="group : ${teamGroups}" class="card">
+                <h5 class="card-title">Request ID: <span th:text="${group.requestId}"></span></h5>
+
+                <p><strong>Volunteer(s):</strong>
+                    <span th:each="vol : ${group.volunteerUsernames}" th:text="${vol}" class="badge me-1"></span>
+                </p>
+
+                <p><strong>Resources and Quantity:</strong></p>
+                <ul>
+                    <li th:each="entry : ${group.resourceQuantityMap}">
+                        <span th:text="${entry.key} + ' - ' + ${entry.value}"></span>
+                    </li>
+                </ul>
+
+                <p><strong>Task Description(s):</strong></p>
+                <ul>
+                    <li th:each="desc : ${group.taskDescriptions}" th:text="${desc}"></li>
+                </ul>
+
+                <p><strong>Address(es):</strong></p>
+                <ul>
+                    <li th:each="addr : ${group.addresses}" th:text="${addr}"></li>
+                </ul>
+            </div>
+        </div>
+
+        <div th:if="${teamGroups == null or teamGroups.isEmpty()}">
+            <div class="alert">No assignments found for this volunteer.</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

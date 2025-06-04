@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Victim</title>
+    <style>
+        body { font-family: 'Segoe UI'; background: #f4f7fa; padding: 40px; }
+        .container {
+          max-width: 400px; margin: auto; background: #e0ecf7;
+          padding: 30px; border-radius: 10px; box-shadow: 0 0 12px rgba(0,0,0,0.1);
+        }
+        h2 { text-align: center; color: #1d4e89; }
+        label, input, button, select {
+          width: 100%; margin-top: 10px; padding: 10px;
+        }
+        button { background-color: #1d4e89; color: white; border: none; border-radius: 5px; }
+        <!--   .error { color: red; text-align: center; } -->
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Update Victim Details</h2>
+
+    <p th:if="${error}" th:text="${error}" class="error"></p>
+
+    <!-- Step 1: Enter Username -->
+    <form th:action="@{/victim/updatedetails}" method="get" th:if="${victim.username == null or #strings.isEmpty(victim.address)}" th:object="${victim}">
+        <label>Enter Username:</label>
+        <input type="text" th:field="*{username}" required />
+        <button type="submit">Fetch Details</button>
+    </form>
+
+    <!-- Step 2: Show Address and City -->
+    <form th:action="@{/victim/updatedetails}" method="post" th:if="${victim.username != null and victim.address != null}" th:object="${victim}">
+        <input type="hidden" th:field="*{username}" />
+
+        <label>Address:</label>
+        <input type="text" th:field="*{address}" required />
+
+        <label>City:</label>
+        <input type="text" th:field="*{city}" required />
+
+        <button type="submit">Update Victim</button>
+    </form>
+</div>
+</body>
+</html>

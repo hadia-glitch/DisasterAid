@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Task Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('/css/Images/faded background.png') no-repeat center center fixed;
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 40px;
+            color: #fff;
+        }
+
+        .section {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            margin: 30px auto;
+            border-radius: 20px;
+            width: 70%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: scale(1.01);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        h1 {
+            color: #00b6a1;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        input, textarea, select, button {
+            margin-top: 8px;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 15px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+
+        button {
+            margin-top: 25px;
+            background-color: #018b84;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #163d6b, #009987);
+        }
+
+        .back-button {
+            display: block;
+            text-align: center;
+            margin: 20px auto 0;
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #00b6a1;
+        }
+
+        ::placeholder {
+            color: #ccc;
+        }
+
+        select {
+            background-color: #555;
+            color: white;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        select option {
+            background-color: #555;
+            color: white;
+        }
+
+        select option:checked,
+        select option:hover {
+            background-color: #009987;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="section">
+    <h1>Submit Task Report</h1>
+
+    <form th:action="@{/volunteer/submitReport}" method="post" th:object="${taskReport}">
+
+        <input type="hidden" name="username" th:value="${username}" />
+
+        <label for="teamId">Team ID:</label>
+        <input type="text" id="teamId" name="teamId" th:value="*{teamId}" required>
+
+        <label for="requestId">Request ID:</label>
+        <input type="text" id="requestId" name="requestId" th:value="*{requestId}" required>
+
+        <label for="description">Description of Task:</label>
+        <textarea id="description" name="description" th:text="*{description}" rows="4" placeholder="Describe what was done..." required></textarea>
+
+        <label for="timeDuration">Time Duration:</label>
+        <input type="text" id="timeDuration" name="timeDuration" th:value="*{timeDuration}" placeholder="e.g., 3 hours" required>
+
+        <label for="successRate">Success Rate / Victim Status:</label>
+        <select id="successRate" name="successRate" th:value="*{successRate}" required>
+            <option value="">--Select--</option>
+            <option value="Recovered">Recovered</option>
+            <option value="Stable">Stable</option>
+            <option value="Critical">Critical</option>
+        </select>
+
+        <label for="resourcesUsed">Resources Used:</label>
+        <textarea id="resourcesUsed" name="resourcesUsed" th:text="*{resourcesUsed}" rows="3" placeholder="List resources..." required></textarea>
+
+        <button type="submit">Submit Report</button>
+    </form>
+</div>
+
+<a class="back-button" th:href="@{'/volunteer/dashboard?username=' + ${username}}">← Back to Volunteer Dashboard</a>
+
+</body>
+</html>
+

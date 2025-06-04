@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('/css/Images/faded background.png') no-repeat center center fixed;
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+       .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 60px;
+}
+
+.container {
+    width: 1200px;
+    max-width: 98%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    padding: 60px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+}
+
+        h1 {
+            font-size: 28px;
+            color: #00b6a1;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .button-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Fixed to 3 columns */
+    gap: 40px;
+    margin-top: 40px;
+}
+
+        .task-card {
+            background-color: rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+
+        .task-card:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .task-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            background-color: #00b6a1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 30px;
+        }
+
+        .task-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+        <input type="hidden" name="username" th:value="${admin.username}" />
+        <h1 th:text="'Welcome, ' + ${admin.username} + '!'">Welcome!</h1>
+
+
+        <p>Manage alerts, resources, and team operations using the options below.</p>
+
+        <div class="button-grid">
+            <a th:href="@{/admin/alert/manage(username=${admin.username})}" class="task-card">
+                <div class="task-icon"><i class="fas fa-bell"></i></div>
+                <div class="task-title">Add Alert</div>
+            </a>
+            <a th:href="@{/admin/resources(username=${admin.username})}" class="task-card">
+                <div class="task-icon"><i class="fas fa-cogs"></i></div>
+                <div class="task-title">Add Resource</div>
+            </a>
+            <a th:href="@{/admin/teams/create-team(username=${admin.username})}" class="task-card">
+                <div class="task-icon"><i class="fas fa-tasks"></i></div>
+                <div class="task-title">Manage Requests</div>
+            </a>
+            <a th:href="@{/admin/teams/view}" class="task-card">
+                <div class="task-icon"><i class="fas fa-list"></i></div>
+                <div class="task-title">View Allocations</div>
+            </a>
+            <a th:href="@{/admin/viewReports(username=${admin.username})}" class="task-card">
+                <div class="task-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="task-title">View Task Reports</div>
+            </a>
+            <a th:href="@{/role-selection(username=${admin.username})}" class="task-card">
+                <i class="fas fa-history task-icon"></i>
+                <div class="task-title">Back to Profile</div>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

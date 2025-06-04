@@ -1,0 +1,197 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle, #f0f0f0 0%, #1c1c1c 100%);
+    color: #d3d3d3; /* Light grey text */
+}
+
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        .container {
+            display: flex;
+            width: 900px;
+            background: url('/css/Images/faded background.png') no-repeat center center;
+            background-size: cover;
+            background-blend-mode: overlay;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 50px 40px;
+            background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay for readability */
+        }
+
+        .image-section {
+            flex: 1;
+            background: url('/css/Images/login-side.png') no-repeat center center;
+            background-size: cover;
+        }
+
+        h2 {
+            font-family: 'Ubuntu', sans-serif;
+            color: #017a75;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 6px;
+            color: #d3d3d3;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #d3d3d3;
+        }
+
+        input::placeholder {
+            color: #ccc;
+        }
+
+        .password-toggle {
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #d3d3d3;
+        }
+
+        .password-toggle input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .btn {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+          background: linear-gradient(to right, #163d6b, #009987);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+         background: linear-gradient(to right, #163d6b, #009987);
+        }
+
+        .link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .link a {
+            color: #d3d3d3;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .link a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #d3d3d3;
+            transition: width 0.3s;
+        }
+
+        .link a:hover {
+            color: #ffffff;
+        }
+
+        .link a:hover::after {
+            width: 100%;
+        }
+
+        .error {
+            color: #ff4d4d;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .image-section {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+        <div class="form-section">
+            <h2>Sign In</h2>
+            <form th:action="@{/login}" method="post">
+                <div th:if="${error}" class="error" th:text="${error}"></div>
+
+                <label>Username:</label>
+                <input type="text" name="username" required>
+
+                <label>Password:</label>
+                <input type="password" name="password" id="passwordInput" required>
+
+                <div class="password-toggle">
+                    <input type="checkbox" onclick="togglePassword()"> Show Password
+                </div>
+
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+            <div class="link">
+                <p>Don't have an account? <a th:href="@{/register}">Create Account by Registration</a></p>
+            </div>
+        </div>
+        <div class="image-section"></div>
+    </div>
+</div>
+
+<script>
+    function togglePassword() {
+        const pwd = document.getElementById("passwordInput");
+        pwd.type = pwd.type === "password" ? "text" : "password";
+    }
+</script>
+</body>
+</html>

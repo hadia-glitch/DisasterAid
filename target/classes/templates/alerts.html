@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Alerts</title>
+    <style>
+        body {
+           font-family: 'Segoe UI', sans-serif;
+          background: url('/css/Images/faded background.png');
+           background-size: cover;
+   background-color: #f4f7fa; /* fallback */
+   color: #333;
+   padding: 40px;
+   margin: 0;
+       }
+       .container {
+           width: 80%;
+           margin: 30px auto;
+           background-color: #fff;
+           border-radius: 8px;
+           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+           padding: 30px;
+       }
+       h1 {
+           text-align: center;
+           color: #3b5998;
+           margin-bottom: 30px;
+       }
+       table {
+           width: 100%;
+           border-collapse: collapse;
+           margin-bottom: 30px;
+       }
+       th, td {
+           padding: 12px;
+           text-align: left;
+           border-bottom: 1px solid #ddd;
+       }
+       th {
+           background-color: #3b5998;
+           color: white;
+       }
+       tr:hover {
+           background-color: #f1f1f1;
+       }
+       .table-container {
+           overflow-x: auto;
+       }
+       .action-btn {
+           background-color: #3b5998;
+           color: white;
+           padding: 8px 16px;
+           border: none;
+           border-radius: 5px;
+           cursor: pointer;
+           text-align: center;
+           margin-top: 20px;
+       }
+       .action-btn:hover {
+           background-color: #4e76ab;
+       }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Disaster Alerts</h1>
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Alert Name</th>
+                <th>Type</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Severity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="alert : ${alerts}">
+                <td th:text="${alert.id}"></td>
+                <td th:text="${alert.alertName}"></td>
+                <td th:text="${alert.alertType}"></td>
+                <td th:text="${alert.location}"></td>
+                <td th:text="${alert.description}"></td>
+                <td th:text="${alert.severity}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="/admin/alerts" class="action-btn">Back to Alert Form</a>
+</div>
+</body>
+</html>

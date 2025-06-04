@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Victim Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: url('/css/Images/faded background.png') no-repeat center center fixed;
+        background-size: cover;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+    }
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 40px;
+    }
+
+    .container {
+        display: flex;
+        width: 1000px;
+        max-width: 95%;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+    }
+
+    .left, .right {
+        padding: 30px;
+        flex: 1;
+    }
+
+    .left {
+        border-right: 1px solid rgba(255,255,255,0.1);
+    }
+
+    h2 {
+        color: #00b6a1;
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+
+    .profile-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: #00b6a1;
+        color: white;
+        font-size: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 6px;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        background-color: rgba(255, 255, 255, 0.15);
+        color: #fff;
+    }
+
+    input::placeholder {
+        color: #ccc;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(to right, #1d4e89, #00b6a1);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: linear-gradient(to right, #163d6b, #009987);
+    }
+
+    .task-card {
+        background-color: rgba(255, 255, 255, 0.08);
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+        margin-bottom: 20px;
+        transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .task-card:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .task-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: #00b6a1;
+    }
+
+    .task-title {
+        font-size: 16px;
+        font-weight: 500;
+        color: #fff;
+    }
+
+    a.task-card {
+        text-decoration: none;
+        color: inherit;
+    }
+
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="container">
+    <!-- Left: Update Info -->
+    <div class="left">
+      <div class="profile-icon">
+        <span th:text="${victim.username.substring(0,1).toUpperCase()}"></span>
+      </div>
+
+      <h2>Update Your Profile</h2>
+
+      <form th:action="@{/victim/updatedetails}" method="post">
+        <input type="hidden" name="username" th:value="${victim.username}" />
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" th:value="${victim.address}" />
+
+        <label for="contact">Contact:</label>
+        <input type="text" id="contact" name="contact" th:value="${victim.contact}" />
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" th:value="${victim.city}" />
+
+        <button type="submit"><i class="fas fa-save icon"></i> Save Changes</button>
+      </form>
+    </div>
+    <!-- Right: Task Options -->
+    <div class="right">
+      <h2>Actions</h2>
+
+      <!-- Request Aid -->
+      <a th:href="@{/victim/submit-request(username=${victim.username})}" class="task-card">
+        <i class="fas fa-hands-helping task-icon"></i>
+        <div class="task-title">Request Aid</div>
+      </a>
+
+      <!-- View Request History -->
+      <a th:href="@{role-selection(username=${victim.username})}" class="task-card">
+        <i class="fas fa-history task-icon"></i>
+        <div class="task-title">Back to Profile</div>
+      </a>
+
+
+      </a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
