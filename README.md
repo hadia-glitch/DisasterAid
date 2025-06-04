@@ -22,6 +22,7 @@ Requests are sorted by priority for efficient response.
 Admin selects high-priority requests and automatically recommends volunteers based on Skill match	and Availability status
 Assigns a team and allocates appropriate resources.
 On completion: team is deleted, resources restored, and volunteers marked available.
+
 **HOMEPAGE**
 <img width="947" alt="image" src="https://github.com/user-attachments/assets/086872bc-6cbd-4259-8daf-b46a3bd96e60" />
 ![Screenshot 2025-06-04 230239](https://github.com/user-attachments/assets/b736bf73-26f5-4746-8fc8-bd6c4a163912)
@@ -41,6 +42,11 @@ On completion: team is deleted, resources restored, and volunteers marked availa
 ![Screenshot 2025-06-04 212352](https://github.com/user-attachments/assets/17677231-776f-4109-a11f-066e3210703b)
 ![Screenshot 2025-06-04 212402](https://github.com/user-attachments/assets/95cd5dc9-38e9-4dea-99d5-41caa395e337)
 <img width="946" alt="image" src="https://github.com/user-attachments/assets/5a067b23-ad07-4f0f-a195-4162c9ca4122" />
+![Screenshot 2025-06-04 212501](https://github.com/user-attachments/assets/b01d826a-a9d1-4d49-9779-b46c1cd3dbc7)
+![Screenshot 2025-06-04 212806](https://github.com/user-attachments/assets/63cf8d05-9068-4e7e-b393-cba4b4d33da1)
+![Screenshot 2025-06-04 212816](https://github.com/user-attachments/assets/56e3babe-7b8e-4dee-9a01-8715f539ab5f)
+![Screenshot 2025-06-04 212941](https://github.com/user-attachments/assets/507a8999-9ef4-49b9-a206-ca76f097f046)
+![Screenshot 2025-06-04 212941](https://github.com/user-attachments/assets/44297da6-fa0c-439b-8535-d9ca11a63c1b)
 
 
 <img width="473" alt="image" src="https://github.com/user-attachments/assets/b6577984-6e96-40a0-9a8d-409c46d07550" />
