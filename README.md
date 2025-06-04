@@ -29,7 +29,7 @@ On completion: team is deleted, resources restored, and volunteers marked availa
 ![Screenshot 2025-06-04 214703](https://github.com/user-attachments/assets/0657e34f-e124-416f-ab65-3ec43bae5efc)
 **SIGN IN PAGE**
 ![Screenshot 2025-06-04 230638](https://github.com/user-attachments/assets/f94481bd-8914-4f11-8eed-184596421530)
-** USER DASHBOARD**
+**USER DASHBOARD**
 ![Screenshot 2025-06-04 212301](https://github.com/user-attachments/assets/af87a9c0-3025-48bc-85cf-c27eba650584)
 **ADMIN DASHBOARD AND PAGES**
 ![Screenshot 2025-06-04 214712](https://github.com/user-attachments/assets/d25c8b66-1e48-448f-823a-833f6717c279)
